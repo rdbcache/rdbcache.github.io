@@ -40,27 +40,49 @@ For example:
 
 There are 11 APIs: get, set, getset, put, pull, push, select, insert, delkey, delall and trace:
 
-1. ***/v1/get/hash_key***: Get data from redis or from database.
+#### 1. /v1/get/hash_key 
 
-2. ***/v1/set/hash_key***: Set value in redis and in database.
+&nbsp;&nbsp;&nbsp;&nbsp;Get data from redis or from database.
 
-3. ***/v1/getset/hash_key***: Get current value and set new value in redis and/or in database
+#### 2. /v1/set/hash_key
 
-4. ***/v1/put/key***: Update redis and database with partial data.
+&nbsp;&nbsp;&nbsp;&nbsp;Set value in redis and in database.
 
-5. ***/v1/pull***: Get multiple entries from redis or database.
+#### 3. /v1/getset/hash_key
 
-6. ***/v1/push***: Set multiple entries in redis and database.
+&nbsp;&nbsp;&nbsp;&nbsp;Get current value and set new value in redis and/or in database
 
-7. ***/v1/select***: Select multiple entries from database and populate the redis.
+#### 4. /v1/put/key
 
-8. ***/v1/insert***: Insert multiple entries into database and populate the redis.
+&nbsp;&nbsp;&nbsp;&nbsp;Update redis and database with partial data.
 
-9. ***/v1/delkey***: delete hash key(s) from redis.
+#### 5. /v1/pull
 
-10. ***/v1/delall***: delete hash key(s) and data from both redis and database.
+&nbsp;&nbsp;&nbsp;&nbsp;Get multiple entries from redis or database.
 
-11. ***/v1/trace***: get error messages by trace id.
+#### 6. /v1/push
+
+&nbsp;&nbsp;&nbsp;&nbsp;Set multiple entries in redis and database.
+
+#### 7. /v1/select
+
+&nbsp;&nbsp;&nbsp;&nbsp;Select multiple entries from database and populate the redis.
+
+#### 8. /v1/insert
+
+&nbsp;&nbsp;&nbsp;&nbsp;Insert multiple entries into database and populate the redis.
+
+#### 9. /v1/delkey
+
+&nbsp;&nbsp;&nbsp;&nbsp;delete hash key(s) from redis.
+
+#### 10. /v1/delall
+
+&nbsp;&nbsp;&nbsp;&nbsp;delete hash key(s) and data from both redis and database.
+
+#### 11. /v1/trace
+
+&nbsp;&nbsp;&nbsp;&nbsp;get error messages by trace id.
 
 ## API Services
 
@@ -73,7 +95,7 @@ There are 11 APIs: get, set, getset, put, pull, push, select, insert, delkey, de
 
 Get data from redis or from database.
 
-This action finds the data by the hash key from the redis server. If no data is found, it queries the database by then condition defined by the query string. Once the data is found, it returns to the client immediately. Then, it asynchronously set the hash key in redis server to the data found from database server if no data is found from redis server, and setups key expiration features.
+This action finds the data by the hash key from the redis server. If no data is found, it queries the database by condition defined by the query string. Once the data is found, it returns to the client immediately. Then, it asynchronously set the hash key in redis server to the data found from database server if no data is found from redis server, and setups key expiration features.
 
 Example:
 
