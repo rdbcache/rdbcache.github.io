@@ -15,7 +15,7 @@ Complete [APIs List](/apis) and features available at [Features](/features)
 
 ## Quick Start
 
-**Install rdbcache**
+### Install rdbcache
 
 rdbcache is a java application. It requires Java version 1.8+ runtime environment.
 
@@ -25,7 +25,9 @@ rdbcache is a java application. It requires Java version 1.8+ runtime environmen
     rdbcache -v
     rm install
 
-**Before running, we need to setup environment variables and database.**
+### Before running
+
+We need to setup environment variables and database.
 
 Put following environment variables in your /root/.bash_profile.
 Please replace the values with the proper ones for your environment.
@@ -37,7 +39,7 @@ Please replace the values with the proper ones for your environment.
     export DB_USER_NAME=dbuser
     export DB_USER_PASS=rdbcache
 
-run from console
+### Run from console
 
     rdbcache
 
@@ -45,7 +47,7 @@ run from console
 
 Let’s start with examples.
 
-More examples are available at [APIs List](/apis)
+More examples are available at [APIs List](/apis) and [Features](/features).
 
 ### 1) Get user info from user_table by email david@example.com:
 
