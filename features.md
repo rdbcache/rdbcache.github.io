@@ -99,22 +99,22 @@ It removes any expiration event with hash key my-expiration-test-key. 
 
 Query string in request URL will be translated to SQL clauses and constraints. To facilitate such translation, following keywords are introduced:
 
-* _IS_NOT_NULL_
-* _IS_NULL_
-* _IS_NOT_FALSE_
-* _IS_NOT_TRUE_
-* _IS_TRUE_
-* _IS_FALSE_
-* _NOT_LIKE_
-* _LIKE_
-* _NOT_REGEXP_
-* _REGEXP_
-* _GT_
-* _GE_
-* _LT_
-* _LE_
-* _EQ_
-* _NE_
+* \_IS_NOT_NULL\_
+* \_IS_NULL\_
+* \_IS_NOT_FALSE\_
+* \_IS_NOT_TRUE\_
+* \_IS_TRUE\_
+* \_IS_FALSE\_
+* \_NOT_LIKE\_
+* \_LIKE\_
+* \_NOT_REGEXP\_
+* \_REGEXP\_
+* \_GT\_
+* \_GE\_
+* \_LT\_
+* \_LE\_
+* \_EQ\_
+* \_NE\_
 
 SQL limit clause is supported.
 
@@ -134,7 +134,7 @@ Examples:
     =>
     select * from tb1 where (id = "1" OR id = "2" OR id = "3")
 
-### 3) _REGEXP_
+### 3) \_REGEXP\_
 
     curl http://localhost:8181/v1/select/tb1?name_REGEXP_name1
     =>
