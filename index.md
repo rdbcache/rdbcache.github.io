@@ -5,42 +5,170 @@ tagline: redis database cache asynchronous api server
 ---
 {% include JB/setup %}
 
-Read [Jekyll Quick Start](http://jekyllbootstrap.com/usage/jekyll-quick-start.html)
+## What is rdbcache?
 
-Complete usage and documentation available at: [Jekyll Bootstrap](http://jekyllbootstrap.com)
+rdbcache stands for redis database cache. It is an open source database cache server. rdbcache uses redis as cache to offers asynchronous database cache api service. It provides eventually consistency between redis and database. rdbcache attempts to bridge the gap between redis and database.
 
-## Update Author Attributes
+The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through few simple restful APIs, rdbcache offers the convenience for developers to easily take advantage of the powers and benefits of both redis and database.
 
-In `_config.yml` remember to specify your own data:
-    
-    title : My Blog =)
-    
-    author :
-      name : Name Lastname
-      email : blah@email.test
-      github : username
-      twitter : username
+Complete [APIs List](/apis) and features available at [Features](/features)
 
-The theme should reference these variables whenever needed.
-    
-## Sample Posts
+## Quick Start
 
-This blog contains sample posts which help stage pages and blog data.
-When you don't need the samples anymore just delete the `_posts/core-samples` folder.
+**Install rdbcache**
 
-    $ rm -rf _posts/core-samples
+rdbcache is a java application. It requires Java version 1.8+ runtime environment.
 
-Here's a sample "posts list".
+    wget https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/install
+    sh install
+    check if OK
+    rdbcache -v
+    rm install
 
-<ul class="posts">
-  {% for post in site.posts %}
-    <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>
-  {% endfor %}
-</ul>
+**Before running, we need to setup environment variables and database.**
 
-## To-Do
+Put following environment variables in your /root/.bash_profile.
+Please replace the values with the proper ones for your environment.
 
-This theme is still unfinished. If you'd like to be added as a contributor, [please fork](http://github.com/plusjade/jekyll-bootstrap)!
-We need to clean up the themes, make theme usage guides with theme-specific markup examples.
+    export RDBCACHE_PORT=8181
+    export REDIS_SERVER=localhost
+    export DATABASE_NAME=testdb
+    export DATABASE_SERVER=localhost
+    export DB_USER_NAME=dbuser
+    export DB_USER_PASS=rdbcache
+
+run from console
+
+    rdbcache
+
+## Why & How?
+
+Let’s start with examples.
+
+More examples are available at [APIs List](/apis)
+
+### 1) Get user info from user_table by email david@example.com:
+
+    curl http://rdbcache_server/v1/get/*/user_table?email=david@example.com
+    {
+      "timestamp" : 1518120211706,
+      "duration" : "0.022995",
+      "key" : "69766f6c4556450c85bfda45c4bbab0b",
+      "data" : {
+        "id" : 7,
+        "email" : "david@example.com",
+        "name" : "David C.",
+        "dob" : "1979-11-08"
+      },
+      "trace_id" : "40337bdb704242b98b5830d8eee37a0a"
+    }
+
+### 2) Use the hash key to get the same user info:
+
+    curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
+    {
+      "timestamp" : 1518120320262,
+      "duration" : "0.00197",
+      "key" : "69766f6c4556450c85bfda45c4bbab0b",
+      "data" : {
+        "dob" : "1979-11-08",
+        "id" : "7",
+        "name" : "David C.",
+        "email" : "david@example.com"
+      },
+      "trace_id" : "633d1a87d3e748c4a1f27b9a8316a4ae"
+    }
+
+The duration goes down by ten fold due to the data is in redis. 
+Once created, the hash key will always available until it is deleted by calling delkey or delall APIs. Data expired in redis will not delete the hash key.
+
+### 3) Change the user name from “David C.” to “David Copper”:
+
+    curl -X POST -H "Content-Type: application/json" \
+    http://rdbcache_server/v1/put/69766f6c4556450c85bfda45c4bbab0b \
+    -d '{"name" : "David Copper"}'
+    {
+      "timestamp" : 1518120953655,
+      "duration" : "0.000495",
+      "key" : "69766f6c4556450c85bfda45c4bbab0b",
+      "trace_id" : "eb121832da72463ebdc44aa4dad3f28c"
+    }
+
+Since put API doesn’t have to send data back, it returns immediately after server receives it. The duration reduces to sub-millisecond.
+The put API allows to use partial data to update both redis and database.
+
+### 4) Verify the name change
+
+    curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
+    {
+      "timestamp" : 1518121599199,
+      "duration" : "0.001314",
+      "key" : "69766f6c4556450c85bfda45c4bbab0b",
+      "data" : {
+        "id" : 7,
+        "email" : "david@example.com",
+        "name" : "David Copper",
+        "dob" : "1979-11-08"
+      },
+      "trace_id" : "5faffb5c973c4be7ad32457b29364ea9"
+    }
+
+### 5) Verify data in database:
+
+    mysql -h database_server -u dbuser -p testdb -e "select * from user_table where id = 7"
+    +----+-------------------+--------------+------------+
+    | id | email             | name         | dob        |
+    +----+-------------------+--------------+------------+
+    |  7 | david@example.com | David Copper | 1979-11-08 |
+    +----+-------------------+--------------+------------+
+
+### 6) Select 3 rows from tb1
+
+    curl http://rdbcache_server/v1/select/tb1?limit=3
+    {
+      "timestamp" : 1518122143868,
+      "duration" : "0.00574",
+      "data" : {
+        "2692e593d2464f488f47973d24d8a38b" : {
+          "id" : 1,
+          "name" : "name11",
+          "age" : 10
+        },
+        "b6122872a4b64da88dc926892bacce49" : {
+          "id" : 2,
+          "name" : "name12",
+          "age" : 21
+        },
+        "c4ea1bad68db4b499a4ca548e27e7b4d" : {
+          "id" : 3,
+          "name" : "name13",
+          "age" : 32
+        }
+      },
+      "trace_id" : "e578efa6ca9d43a39273eb83bfc6581d"
+    }
+
+Query string in URL will be translated to SQL clauses and constraints. 
+
+## Tests
+
+Version 1.0 has passed the integration tests, please see [the test result](https://github.com/rdbcache/rdbcache-test/blob/master/rdbcache-test-result.txt). rdbcache test suite is open source and available at [github](https://github.com/rdbcache/rdbcache-test).
+
+## Playing with source code
+
+rdbcache uses maven and build on top of Java Spring Boot 1.5.10. It requires maven 3.5+ and JDK version 1.8+.
+
+    git clone https://github.com/rdbcache/rdbcache.git
+    cd rdbcache
+    mvn clean spring-boot:run
+
+rdbcache test suite is built on top of PHP Yii2 framework. It requires php 5.4.0+ and Yii2 framework.
+
+    git clone https://github.com/rdbcache/rdbcache-test.git
+    cd rdbcache-test
+    composer install
+    ./rdbcache-test
+
+If you'd like to be added as a contributor to improve the software and add more test cases, please fork the code and/or the test suite.
 
 

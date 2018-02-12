@@ -72,12 +72,13 @@ JB :
   # Some JB helpers refer to these paths; change them here if needed.
   #
   apis_path: /apis.html
-  documentation_path: /documentation.html
+  features_path: /features.html
   download_path: /download.html
-  support_path: /support.html
-  archive_path: /archive.html
-  categories_path : /categories.html
-  tags_path : /tags.html
+  news_path: /news.html
+  about_path: /about.html
+  #archive_path: /blogs/archive.html
+  #categories_path : /blogs/categories.html
+  #tags_path : /blogs/tags.html
   atom_path : /atom.xml
   rss_path : /rss.xml
 
