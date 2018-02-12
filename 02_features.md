@@ -32,7 +32,7 @@ Example:
 
 It gets the data from table tb2 and set expiration of the hash key in redis to 10 seconds.
 
-### +X: expiration with position sign
+### +X: expiration with positive sign
 
 It schedules an event in X seconds and remove any previously event with the same key. It delays previous set event, if use it before the event happens.
 

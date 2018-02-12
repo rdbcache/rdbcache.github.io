@@ -29,12 +29,12 @@ For example:
       "trace_id" : "40337bdb704242b98b5830d8eee37a0a"
     }
 
-    * in URL indicates that server will generate a hash key for the data.
-    user_table can be any table with primary key or unique key.
-    timestamp is the server system time at before sending the response.
-    duration is in seconds. It is the time that server used to accomplish the request.
-    key is the hash key. It also maps to the data record through primary (or unique) key.
-    trace_id is an id for late retrieving error(s) associated with this request.
+- \* (asterisk) in URL indicates that server will generate a hash key for the return data.
+- user_table can be any table with primary key or unique key.
+- timestamp is the server system time at before sending the response.
+- duration is in seconds. It is the time that server used to accomplish the request.
+- key is the hash key. It also maps to the data record through primary (or unique) key.
+- trace_id is an id for late retrieving error(s) associated with this request.
 
 ## Summary
 
