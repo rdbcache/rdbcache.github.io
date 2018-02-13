@@ -109,9 +109,9 @@ JB :
   analytics :
     provider : google
     gauges :
-        site_id : 'SITE ID'
+        site_id : 'rdbcache'
     google : 
-        tracking_id : 'UA-123-12'
+        tracking_id : 'UA-114051423-1'
     getclicky :
       site_id : 
     mixpanel :

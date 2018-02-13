@@ -11,26 +11,21 @@ rdbcache stands for redis database cache. It is an open source database cache se
 
 The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through few simple restful API endpoints, rdbcache offers the convenience for developers to easily take advantage of the powers and benefits of both redis and database.
 
-Links for complete [API List](/apis) and [Features](/features)
+Links for complete [API List](/01_apis) and [Features](/02_features)
 
 ## Quick Start
 
-### Install rdbcache
-
 rdbcache is a java application. It requires Java version 1.8+ runtime environment.
 
-    wget https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/install
-    sh install
-    check if OK
+#### For Mac/Linux:
+
+    curl https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/install | sh
+
+    # check if OK
     rdbcache -v
-    rm install
 
-### Before running
-
-We need to setup environment variables and database.
-
-Put following environment variables in your /root/.bash_profile.
-Please replace the values with the proper ones for your environment.
+    Put following environment variables in your /root/.bash_profile.
+    Please replace the values with the proper ones for your environment.
 
     export RDBCACHE_PORT=8181
     export REDIS_SERVER=localhost
@@ -39,15 +34,29 @@ Please replace the values with the proper ones for your environment.
     export DB_USER_NAME=dbuser
     export DB_USER_PASS=rdbcache
 
-### Run from console
-
     rdbcache
+
+#### For Windows:
+
+click [download rdbcache.zip](https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/rdbcache.zip)
+
+    # check if OK
+    java -jar rdbcache.jar -v
+
+    Please replace the values with the proper ones for your environment.
+
+    SET RDBCACHE_PORT=8181
+    SET REDIS_SERVER=localhost
+    SET DATABASE_NAME=testdb
+    SET DATABASE_SERVER=localhost
+    SET DB_USER_NAME=dbuser
+    SET DB_USER_PASS=rdbcache
+
+    java -jar rdbcache.jar
 
 ## Why & How?
 
-Let’s start with examples.
-
-More examples are available at [API List](/apis) and [Features](/features).
+The answer for Why? is in [About page](/04_about). Let’s try to answer How? with examples.
 
 ### 1) Get user info from user_table by email david@example.com:
 
@@ -65,6 +74,9 @@ More examples are available at [API List](/apis) and [Features](/features).
       "trace_id" : "40337bdb704242b98b5830d8eee37a0a"
     }
 
+A simple API request can query and get data from database.  
+The duration is in seconds. It is the time that server used to accomplish the request.
+
 ### 2) Use the hash key to get the same user info:
 
     curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
@@ -81,8 +93,8 @@ More examples are available at [API List](/apis) and [Features](/features).
       "trace_id" : "633d1a87d3e748c4a1f27b9a8316a4ae"
     }
 
-The duration goes down by ten fold due to the data is in redis. 
-Once created, the hash key will always available until it is deleted by calling delkey or delall API. Data expired in redis will not delete the hash key.
+The duration goes down by ten fold due to the data is in redis.  
+Once created, the hash key will always available until it is deleted by calling delkey or delall API.
 
 ### 3) Change the user name from “David C.” to “David Copper”:
 
@@ -96,7 +108,8 @@ Once created, the hash key will always available until it is deleted by calling 
       "trace_id" : "eb121832da72463ebdc44aa4dad3f28c"
     }
 
-Since put API doesn’t have to send data back, it returns immediately after server receives it. The duration reduces to sub-millisecond.
+Since put API doesn’t have to send data back, it returns immediately after server receives it.  
+The duration reduces to sub-millisecond.  
 The put API allows to use partial data to update both redis and database.
 
 ### 4) Verify the name change
@@ -115,6 +128,8 @@ The put API allows to use partial data to update both redis and database.
       "trace_id" : "5faffb5c973c4be7ad32457b29364ea9"
     }
 
+Name is changed.
+
 ### 5) Verify data in database:
 
     mysql -h database_server -u dbuser -p testdb -e "select * from user_table where id = 7"
@@ -123,6 +138,8 @@ The put API allows to use partial data to update both redis and database.
     +----+-------------------+--------------+------------+
     |  7 | david@example.com | David Copper | 1979-11-08 |
     +----+-------------------+--------------+------------+
+
+Name is changed in database.
 
 ### 6) Select 3 rows from tb1
 
@@ -150,7 +167,10 @@ The put API allows to use partial data to update both redis and database.
       "trace_id" : "e578efa6ca9d43a39273eb83bfc6581d"
     }
 
+A simple API request can pull out multiple rows of data from database.  
 Query string in URL will be translated to SQL clauses and constraints. 
+
+More examples are available at [API List](/01_apis) and [Features](/02_features).
 
 ## Tests
 

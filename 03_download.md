@@ -2,7 +2,7 @@
 layout: page
 title : Download
 header : Download
-tagLine: install
+tagline: install
 group: navigation
 ---
 {% include JB/setup %}
@@ -11,27 +11,15 @@ group: navigation
 
 rdbcache is a java application. It requires Java version 1.8+ runtime environment.
 
-For linux:
+#### For Mac/Linux:
 
-    wget https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/install
-    sh install
-    check if OK
+    curl https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/install | sh
+
+    # check if OK
     rdbcache -v
-    rm install
 
-For Windows:
-
-    click https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/rdbcache.tar.gz
-    click and open rdbcache.tar.gz
-    run in command prompt, check if OK
-    java -jar rdbcache.jar -v
-
-## Setup
-
-we need to setup environment variables and database
-
-Put following environment variables in your /root/.bash_profile.
-Please replace the values with the proper ones for your environment.
+    Put following environment variables in your /root/.bash_profile.
+    Please replace the values with the proper ones for your environment.
 
     export RDBCACHE_PORT=8181
     export REDIS_SERVER=localhost
@@ -40,6 +28,22 @@ Please replace the values with the proper ones for your environment.
     export DB_USER_NAME=dbuser
     export DB_USER_PASS=rdbcache
 
-run from console
-
     rdbcache
+
+#### For Windows:
+
+click [download rdbcache.zip](https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/rdbcache.zip)
+
+    # check if OK
+    java -jar rdbcache.jar -v
+
+    Please replace the values with the proper ones for your environment.
+
+    SET RDBCACHE_PORT=8181
+    SET REDIS_SERVER=localhost
+    SET DATABASE_NAME=testdb
+    SET DATABASE_SERVER=localhost
+    SET DB_USER_NAME=dbuser
+    SET DB_USER_PASS=rdbcache
+
+    java -jar rdbcache.jar
