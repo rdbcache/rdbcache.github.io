@@ -17,4 +17,4 @@ The main idea to address this issue is piping, which is continuously sending mul
 
 rdbcache is my proposal to address the issue. It is the missing piece I have been searching for. It is designed to run in the same host as the application server. The RTT for local loop is about 0.0x millisecond or less. If use unix socket, the number will be even smaller. With such small RTT, programmer can ignore RTT issue at all and coding as the nature logic flow goes. It should be simple, reliable and handy, but no dramatic.
 
-rdbcache uses redis as cache to offers asynchronous database cache api service. It provides eventually consistency between redis and database. rdbcache attempts to bridge the gap between redis and database and also help to address the RTT issue if running at the same host as the application server.
+rdbcache uses redis as cache to offers asynchronous database cache api service. It provides eventually consistency between redis and database. rdbcache attempts to bridge the gap between redis and database. rdbcache also helps to address the RTT issue if running at the same host as the application server.
