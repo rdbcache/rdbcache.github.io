@@ -1,7 +1,7 @@
 ---
 layout: page
-title : APIs List
-header : APIs List
+title : API List
+header : API List
 tagline: restful application interface
 group: navigation
 ---
@@ -9,7 +9,7 @@ group: navigation
 
 ## Basic
 
-All APIs have the same simple pattern:
+All API endpoints have the same simple pattern:
 
     /version/api_name/hash_key[/value][/table_name][/expiration][?query_string]
 
@@ -38,56 +38,56 @@ For example:
 
 ## Summary
 
-There are 11 APIs: get, set, getset, put, pull, push, select, insert, delkey, delall and trace:
+There are 11 API endpoints: get, set, getset, put, pull, push, select, insert, delkey, delall and trace:
 
-#### 1. /v1/get/hash_key 
+#### [1. /v1/get/hash_key](#api-1) 
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get data from redis or from database.
 
-#### 2. /v1/set/hash_key
+#### [2. /v1/set/hash_key](#api-2)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Set value in redis and in database.
 
-#### 3. /v1/getset/hash_key
+#### [3. /v1/getset/hash_key](#api-3)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get current value and set new value in redis and/or in database
 
-#### 4. /v1/put/key
+#### [4. /v1/put/key](#api-4)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Update redis and database with partial data.
 
-#### 5. /v1/pull
+#### [5. /v1/pull](#api-5)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get multiple entries from redis or database.
 
-#### 6. /v1/push
+#### [6. /v1/push](#api-6)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Set multiple entries in redis and database.
 
-#### 7. /v1/select
+#### [7. /v1/select](#api-7)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Select multiple entries from database and populate the redis.
 
-#### 8. /v1/insert
+#### [8. /v1/insert](#api-8)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Insert multiple entries into database and populate the redis.
 
-#### 9. /v1/delkey
+#### [9. /v1/delkey](#api-9)
 
 &nbsp;&nbsp;&nbsp;&nbsp;delete hash key(s) from redis.
 
-#### 10. /v1/delall
+#### [10. /v1/delall](#api-10)
 
 &nbsp;&nbsp;&nbsp;&nbsp;delete hash key(s) and data from both redis and database.
 
-#### 11. /v1/trace
+#### [11. /v1/trace](#api-11)
 
 &nbsp;&nbsp;&nbsp;&nbsp;get error messages by trace id.
 
 ## API Services
 
 ### 1. /v1/get/hash_key
-
+<a id="api-1"></a>
 * method: get
 * option1: table name
 * option2: expiration
@@ -113,7 +113,7 @@ Example:
     }
 
 ### 2. /v1/set/hash_key
-
+<a id="api-2"></a>
 * method: get, post
 * option1: value (required for get, invalid for post)
 * option2: table name
@@ -150,7 +150,7 @@ Examples:
     }
 
 ### 3. /v1/getset/hash_key
-
+<a id="api-3"></a>
 * method: get, post
 * option1: value (required for get, invalid for post)
 * option2: table name
@@ -192,7 +192,7 @@ Examples:
     }
 
 ### 4. /v1/put/key
-
+<a id="api-4"></a>
 * method: post
 * option1: table name
 * option2: expiration
@@ -228,7 +228,7 @@ Examples:
     }
 
 ### 5. /v1/pull
-
+<a id="api-5"></a>
 * method: post
 * option1: table name
 * option2: expiration
@@ -280,7 +280,7 @@ Examples:
     }
 
 ### 6. /v1/push
-
+<a id="api-6"></a>
 * method: post
 * option1: table name
 * option2: expiration
@@ -328,7 +328,7 @@ Examples:
     }
 
 ### 7. /v1/select
-
+<a id="api-7"></a>
 * method: get
 * option1: table name
 * option2: expiration
@@ -365,7 +365,7 @@ Examples:
     }
 
 ### 8. /v1/insert
-
+<a id="api-8"></a>
 * method: post
 * option1: table name
 * option2: expiration
@@ -413,7 +413,7 @@ Examples:
     }
 
 ### 9. /v1/delkey
-
+<a id="api-9"></a>
 * method: get, post
 * option1: hash_key (required for get, invalid for post)
 
@@ -457,7 +457,7 @@ Examples:
     }
 
 ### 10. /v1/delall
-
+<a id="api-10"></a>
 * method: get, post
 * option1: hash_key (required for get, invalid for post)
 
@@ -496,13 +496,13 @@ Examples:
     }
 
 ### 11. /v1/trace
-
+<a id="api-11"></a>
 * method: get, post
 * option1: trace_id (required for get, invalid for post)
 
 get error messages by trace id.
 
-A trace id is sent back in responses for all APIs. This trace id allows user to retrieve error messages if there is any error caused by the API call.
+A trace id is sent back in responses for all API calls. This trace id allows user to retrieve error messages if there is any error caused by the API call.
 
 Example:
 

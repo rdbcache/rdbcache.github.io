@@ -45,8 +45,10 @@
 
   <body>
     <div id="wrap">
+
       <nav class="navbar navbar-default" role="navigation">
         <div class="container">
+
           <!-- Brand and toggle get grouped for better mobile display -->
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#jb-navbar-collapse">
@@ -56,7 +58,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="navbar-brand" href="{{ HOME_PATH }}" 
-            style="background: url({{ site.logo }}) left / contain no-repeat; background-position: 16px 0; width: 200px;">
+              style="background: url({{ site.logo }}) left / contain no-repeat; background-position: 16px 0; width: 200px;">
               {{ site.title }}
             </a>
           </div>
@@ -68,8 +70,9 @@
               {% assign group = 'navigation' %}
               {% include JB/pages_list %}
             </ul>
-          </div>
-        </div><!-- /.navbar-collapse -->
+          </div><!-- /.navbar-collapse -->
+
+        </div>
       </nav>
 
       <div class="container">

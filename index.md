@@ -9,9 +9,9 @@ tagline: redis database cache asynchronous api server
 
 rdbcache stands for redis database cache. It is an open source database cache server. rdbcache uses redis as cache to offers asynchronous database cache api service. It provides eventually consistency between redis and database. rdbcache attempts to bridge the gap between redis and database.
 
-The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through few simple restful APIs, rdbcache offers the convenience for developers to easily take advantage of the powers and benefits of both redis and database.
+The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through few simple restful API endpoints, rdbcache offers the convenience for developers to easily take advantage of the powers and benefits of both redis and database.
 
-Complete [APIs List](/apis) and features available at [Features](/features)
+Links for complete [API List](/apis) and [Features](/features)
 
 ## Quick Start
 
@@ -47,7 +47,7 @@ Please replace the values with the proper ones for your environment.
 
 Let’s start with examples.
 
-More examples are available at [APIs List](/apis) and [Features](/features).
+More examples are available at [API List](/apis) and [Features](/features).
 
 ### 1) Get user info from user_table by email david@example.com:
 
@@ -82,7 +82,7 @@ More examples are available at [APIs List](/apis) and [Features](/features).
     }
 
 The duration goes down by ten fold due to the data is in redis. 
-Once created, the hash key will always available until it is deleted by calling delkey or delall APIs. Data expired in redis will not delete the hash key.
+Once created, the hash key will always available until it is deleted by calling delkey or delall API. Data expired in redis will not delete the hash key.
 
 ### 3) Change the user name from “David C.” to “David Copper”:
 
