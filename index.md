@@ -174,7 +174,7 @@ More examples are available at [API List](/01_apis) and [Features](/02_features)
 
 ## Tests
 
-Version 1.0 has passed the integration tests, please see [the test result](https://github.com/rdbcache/rdbcache-test/blob/master/rdbcache-test-result.txt). rdbcache test suite is open source and available at [github](https://github.com/rdbcache/rdbcache-test).
+Version 1.0 beta has passed the integration tests, please see [the test result](https://github.com/rdbcache/rdbcache-test/blob/master/rdbcache-test-result.txt). rdbcache test suite is open source and available at [github](https://github.com/rdbcache/rdbcache-test).
 
 ## Playing with source code
 

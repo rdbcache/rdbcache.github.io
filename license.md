@@ -5,7 +5,7 @@ header : License
 ---
 {% include JB/setup %}
 
-rdbcache is free software. It is released under the terms of the following BSD License.
+rdbcache is an open source software. It is released under the terms of the following BSD License.
 
 Copyright © 2017-2018 by Sam Wen  
 All rights reserved.
