@@ -2,6 +2,7 @@
 layout: page
 title: rdbcache
 tagline: redis database cache asynchronous api server
+comments: true
 ---
 {% include JB/setup %}
 
@@ -175,6 +176,14 @@ More examples are available at [API List](/01_apis) and [Features](/02_features)
 ## Tests
 
 Version 1.0 beta has passed the integration tests, please see [the test result](https://github.com/rdbcache/rdbcache-test/blob/master/rdbcache-test-result.txt). rdbcache test suite is open source and available at [github](https://github.com/rdbcache/rdbcache-test).
+
+    tail -f rdbcache-test-result.txt 
+    ......
+    =============== OVERALL ===============
+
+    Total: 409
+    All passed!
+    All verify passed!
 
 ## Playing with source code
 
