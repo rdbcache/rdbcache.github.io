@@ -50,7 +50,7 @@ There are 11 API endpoints: get, set, getset, put, pull, push, select, insert, d
 
 #### [3. /v1/getset/hash_key](#api-3)
 
-&nbsp;&nbsp;&nbsp;&nbsp;Get current value and set new value in redis and/or in database
+&nbsp;&nbsp;&nbsp;&nbsp;Get current value and set new value in redis and/or in database.
 
 #### [4. /v1/put/key](#api-4)
 
