@@ -4,6 +4,7 @@ title : Features
 header : Features List
 tagline: expiration and query string
 group: navigation
+order: 2
 ---
 {% include JB/setup %}
 

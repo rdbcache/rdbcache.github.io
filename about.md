@@ -4,6 +4,7 @@ title : About
 header : About
 tagline: rdbcache
 group: navigation
+order: 5
 ---
 {% include JB/setup %}
 

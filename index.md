@@ -12,7 +12,7 @@ rdbcache stands for redis database cache. It is an open source database cache se
 
 The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through few simple restful API endpoints, rdbcache offers the convenience for developers to easily take advantage of the powers and benefits of both redis and database.
 
-Links for complete [API List](/01_apis) and [Features](/02_features)
+Links for complete [API List](/api-list) and [Features](/features)
 
 ## Quick Start
 
@@ -25,7 +25,7 @@ rdbcache is a java application. It requires Java version 1.8+ runtime environmen
     # check if OK
     rdbcache -v
 
-    Put following environment variables in your /root/.bash_profile.
+    Put following environment variables in your ~/.bash_profile.
     Please replace the values with the proper ones for your environment.
 
     export RDBCACHE_PORT=8181
@@ -57,7 +57,7 @@ click [download rdbcache.zip](https://raw.githubusercontent.com/rdbcache/rdbcach
 
 ## Why & How?
 
-The answer for Why? is in [About page](/04_about). Let’s try to answer How? with examples.
+The answer for Why is in [About page](/about). Let’s try to answer How with examples.
 
 ### 1) Get user info from user_table by email david@example.com:
 
@@ -171,7 +171,7 @@ Name is changed in database.
 A simple API request can pull out multiple rows of data from database.  
 Query string in URL will be translated to SQL clauses and constraints. 
 
-More examples are available at [API List](/01_apis) and [Features](/02_features).
+More examples are available at [API List](/api-list) and [Features](/features).
 
 ## Tests
 
@@ -200,6 +200,10 @@ rdbcache test suite is built on top of PHP Yii2 framework. It requires php 5.4.0
     composer install
     ./rdbcache-test
 
-If you'd like to be added as a contributor to improve the software and add more test cases, please fork the code and/or the test suite.
+If you'd like to be added as a contributor to improve the software and add more test cases, please fork the code and the test suite.
+
+## License
+
+rdbcache is licensed under the BSD License - see the [LICENSE](/license) for details
 
 
