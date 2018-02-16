@@ -8,7 +8,7 @@ order: 5
 ---
 {% include JB/setup %}
 
-I am Sam Wen - an engineer with passion for writing code and building stuff on top of open source software. For the past few years, when I worked with in-memory cache and relational database, I often had the feeling that we are missing something that should already exist. I have been searching for it on the Internet and have not found it.
+I am Sam Wen - an engineer with a passion for writing code and building stuff on top of open source software. In my previous projects, when I worked with in-memory cache and relational database, I often had the feeling that we are missing something that should already exist. I have been searching for it on the Internet and have not found it.
 
 
 ### Use both redis and database at the same time in an easy way
