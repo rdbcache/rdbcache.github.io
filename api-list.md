@@ -53,7 +53,7 @@ There are 11 API endpoints: get, set, getset, put, pull, push, select, insert, d
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get current value and set new value in redis and/or in database.
 
-#### [4. /v1/put/key](#api-4)
+#### [4. /v1/put/hash_key](#api-4)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Update redis and database with partial data.
 
@@ -192,7 +192,7 @@ Examples:
       "trace_id" : "b747722de6a54899842b21777802cf34"
     }
 
-### 4. /v1/put/key
+### 4. /v1/put/hash_key
 <a id="api-4"></a>
 * method: post
 * option1: table name
