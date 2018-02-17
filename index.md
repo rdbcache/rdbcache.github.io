@@ -8,15 +8,15 @@ comments: true
 
 ## What is rdbcache?
 
-rdbcache stands for redis database cache. It is an open source software. rdbcache uses redis as cache to offer asynchronous database cache api service. It provides eventually consistency between redis and database. rdbcache attempts to bridge the gap between redis and database.
+rdbcache (redis database cache) is an open source database cache server. rdbcache uses redis as a cache to offer an asynchronous database cache api service. It provides [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency) between redis and the database.
 
-The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through few simple restful API endpoints, rdbcache offers the convenience for developers to easily take advantage of the powers and benefits of both redis and database.
+The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through a few simple restful API endpoints, rdbcache offers a convenient way for developers to leverage the power of both redis and the database.
 
 Links for complete [API List](/api-list) and [Features](/features)
 
 ## Quick Start
 
-rdbcache is a java application. It requires Java version 1.8+ runtime environment.
+rdbcache is a Java application. It requires Java version 1.8+ runtime environment.
 
 #### For Mac/Linux:
 
@@ -39,7 +39,7 @@ rdbcache is a java application. It requires Java version 1.8+ runtime environmen
 
 #### For Windows:
 
-click [download rdbcache.zip](https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/rdbcache.zip)
+Click to [download rdbcache.zip](https://raw.githubusercontent.com/rdbcache/rdbcache/master/download/rdbcache.zip)
 
     # check if OK
     java -jar rdbcache.jar -v
@@ -55,11 +55,18 @@ click [download rdbcache.zip](https://raw.githubusercontent.com/rdbcache/rdbcach
 
     java -jar rdbcache.jar
 
-## Why & How?
+## Why use rdbcache?
 
-The answer for Why is in [About page](/about). Let’s try to answer How with examples.
+You can learn more about usecases on the [about page](/about). 
+
+## How to use rdbcache?
+
+Let’s demonstrate how to use rdbcache with some examples.
 
 ### 1) Get user info from user_table by email david@example.com:
+
+A simple API request can query and get data from the database.
+The duration is the time it takes for the server to perform the request (measured in seconds).
 
     curl http://rdbcache_server/v1/get/*/user_table?email=david@example.com
     {
@@ -75,10 +82,7 @@ The answer for Why is in [About page](/about). Let’s try to answer How with ex
       "trace_id" : "40337bdb704242b98b5830d8eee37a0a"
     }
 
-A simple API request can query and get data from database.  
-The duration is in seconds. It is the time that server used to accomplish the request.
-
-### 2) Use the hash key to get the same user info:
+Here we request the same data as in the previous example. The duration is reduced to around 10% of the first request because the data is now in redis. Once created, the hash key will always available until it is deleted by calling delkey or delall API.
 
     curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
     {
@@ -94,10 +98,12 @@ The duration is in seconds. It is the time that server used to accomplish the re
       "trace_id" : "633d1a87d3e748c4a1f27b9a8316a4ae"
     }
 
-The duration goes down by ten fold due to the data is in redis.  
-Once created, the hash key will always available until it is deleted by calling delkey or delall API.
 
-### 3) Change the user name from “David C.” to “David Copper”:
+### 2) Change the user name from “David C.” to “David Copper”:
+
+The put API allows to use partial data to update both redis and database.
+
+Since the put API doesn’t have to send back any data, it returns immediately after server receives the request. The duration is reduced to less than a millisecond.
 
     curl -X POST -H "Content-Type: application/json" \
     http://rdbcache_server/v1/put/69766f6c4556450c85bfda45c4bbab0b \
@@ -109,11 +115,7 @@ Once created, the hash key will always available until it is deleted by calling 
       "trace_id" : "eb121832da72463ebdc44aa4dad3f28c"
     }
 
-Since put API doesn’t have to send data back, it returns immediately after server receives it.  
-The duration reduces to sub-millisecond.  
-The put API allows to use partial data to update both redis and database.
-
-### 4) Verify the name change
+Let's verify that everything worked.
 
     curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
     {
@@ -129,9 +131,7 @@ The put API allows to use partial data to update both redis and database.
       "trace_id" : "5faffb5c973c4be7ad32457b29364ea9"
     }
 
-Name is changed.
-
-### 5) Verify data in database:
+Now we also check the database to verify the change:
 
     mysql -h database_server -u dbuser -p testdb -e "select * from user_table where id = 7"
     +----+-------------------+--------------+------------+
@@ -140,9 +140,7 @@ Name is changed.
     |  7 | david@example.com | David Copper | 1979-11-08 |
     +----+-------------------+--------------+------------+
 
-Name is changed in database.
-
-### 6) Select 3 rows from tb1
+### 3) Select 3 rows from a table
 
     curl http://rdbcache_server/v1/select/tb1?limit=3
     {
@@ -169,7 +167,7 @@ Name is changed in database.
     }
 
 A simple API request can pull out multiple rows of data from database.  
-Query string in URL will be translated to SQL clauses and constraints. 
+The query string in URL format is translated to SQL clauses and constraints. 
 
 More examples are available at [API List](/api-list) and [Features](/features).
 
@@ -187,7 +185,7 @@ Version 1.0 beta has passed the integration tests, please see [the test result](
 
 ## Playing with source code
 
-rdbcache uses maven and build on top of Java Spring Boot 1.5.10. It requires maven 3.5+ and JDK version 1.8+.
+rdbcache uses Maven and build on top of Java Spring Boot 1.5.10. It requires Maven 3.5+ and JDK version 1.8+.
 
     git clone https://github.com/rdbcache/rdbcache.git
     cd rdbcache
@@ -200,7 +198,7 @@ rdbcache test suite is built on top of PHP Yii2 framework. It requires php 5.4.0
     composer install
     ./rdbcache-test
 
-If you'd like to be added as a contributor to improve the software and add more test cases, please fork the code and the test suite.
+If you'd like to be added as a contributor to improve the software and to add more test cases, please fork the code and the test suite.
 
 ## License
 
