@@ -10,13 +10,15 @@ order: 2
 
 ## Expiration
 
-Expiration is an optional path variable. The default value is configurable.
+Expiration is an optional path variable (the default value is configurable).
 
-### X: expiration with no sign
+### X: set the expiration with no sign
 
-It schedules an event in X seconds, only if no event with the same key exists. It will not change a previous setup event.
+This parameter option schedules an event to start in X seconds, only if there is no event with the same key exists. It will not change a previous setup event.
 
 Example: 
+
+It gets the data from table tb2 and set expiration of the hash key in redis to 10 seconds.
 
     curl http://localhost:8181/v1/get/my-expiration-test-key/tb2/10?id=id21
     {
@@ -31,13 +33,14 @@ Example:
       "trace_id" : "ee4439a4e71b4933bbbf9da7895a517a"
     }
 
-It gets the data from table tb2 and set expiration of the hash key in redis to 10 seconds.
 
-### +X: expiration with positive sign
+### +X: set the expiration with a positive sign
 
-It schedules an event in X seconds and remove any previously event with the same key. It delays previous set event, if use it before the event happens.
+This parameter option schedules an event to start in X seconds and removes any previously set events with the same key. If a new event is scheduled before the previous event, it delays a previous event.
 
 Example: 
+
+It gets the data and forces to set the expiration to 30 seconds.
 
     curl http://localhost:8181/v1/get/my-expiration-test-key/tb2/+30?id=id21
     {
@@ -52,13 +55,14 @@ Example:
       "trace_id" : "915a4d0ceec24a9992c5273a4c894069"
     }
 
-It gets the data and forces to set the expiration to 30 seconds.
 
-### -X: expiration with negative sign
+### -X: set the expiration with a negative sign
 
-It schedules an event that occurs every X seconds and remove any previously event with the same key.
+This parameter option schedules an event to occur every X seconds and removes any previously set events with the same key.
 
 Example:
+
+It forcefully sets the expiration is 3 seconds and change the expiration behavior to refresh redis with data from database.
 
     curl http://localhost:8181/v1/get/my-expiration-test-key/tb2/-3?id=id21
     {
@@ -73,13 +77,14 @@ Example:
       "trace_id" : "953294b4e7054eb98b6039833b05c7ff"
     }
 
-It forces to set the expiration is 3 seconds and change the expiration behavior to refresh redis with data from database. 
 
-### 0: expiration is zero
+### 0: set the expiration to zero
 
-It removes existing event with the same key.
+This parameter option removes existing event with the same key.
 
 Example:
+
+It removes any expiration event with hash key my-expiration-test-key. 
 
     curl http://localhost:8181/v1/get/my-expiration-test-key/0
     {
@@ -94,11 +99,9 @@ Example:
       "trace_id" : "5fff44317205470ba465ea4caa70e0f1"
     }
 
-It removes any expiration event with hash key my-expiration-test-key. 
-
 ## Query String
 
-Query string in request URL will be translated to SQL clauses and constraints. To facilitate such translation, following keywords are introduced:
+The query string in the request URL will be translated to SQL clauses and constraints. To facilitate such translation, following keywords are introduced:
 
 * \_IS_NOT_NULL\_
 * \_IS_NULL\_
@@ -119,7 +122,7 @@ Query string in request URL will be translated to SQL clauses and constraints. T
 
 SQL limit clause is supported.
 
-Also the conventional operators: =, !=, >, >=, <, <=, <> are supported, url encoding may need.
+Also the conventional operators: =, !=, >, >=, <, <=, <> are supported, url encoding may be needed.
 
 Examples:
 
