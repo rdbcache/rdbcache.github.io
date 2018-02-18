@@ -10,7 +10,7 @@ order: 3
 
 ## Install rdbcache
 
-rdbcache is a java application. It requires Java version 1.8+ runtime environment.
+rdbcache is a Java application. It requires Java version 1.8+ runtime environment.
 
 #### For Mac/Linux:
 
