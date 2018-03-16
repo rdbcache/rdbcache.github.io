@@ -39,7 +39,7 @@ For example:
 
 ## Summary
 
-There are 11 API endpoints: get, set, getset, put, pull, push, select, insert, delkey, delall and trace:
+There are 11 API endpoints: get, set, getset, put, pull, push, select, save, delkey, delall and trace:
 
 #### [1. /v1/get/hash_key](#api-1) 
 
@@ -69,9 +69,9 @@ There are 11 API endpoints: get, set, getset, put, pull, push, select, insert, d
 
 &nbsp;&nbsp;&nbsp;&nbsp;Select multiple entries from database and populate the redis.
 
-#### [8. /v1/insert](#api-8)
+#### [8. /v1/save](#api-8)
 
-&nbsp;&nbsp;&nbsp;&nbsp;Insert multiple entries into database and populate the redis.
+&nbsp;&nbsp;&nbsp;&nbsp;Save multiple entries into database and populate the redis.
 
 #### [9. /v1/delkey](#api-9)
 
@@ -293,7 +293,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/insert/tb1' \
+    'http://localhost:8181/v1/save/tb1' \
     -d '[{"name":"new_name001","age":11}, {"name":"new_name002","age":12},{"name":"new_name003","age":13}]'
     {
       "timestamp" : 1518038120506,
@@ -365,20 +365,20 @@ Examples:
       "trace_id" : "a16838c58a9149c0b41468dff9dc26ff"
     }
 
-### 8. /v1/insert
+### 8. /v1/save
 <a id="api-8"></a>
 * method: post
 * option1: table name
 * option2: expiration
 
-Insert multiple entries into database and populate the redis.
+Save multiple entries into database and populate the redis.
 
-It returns to the client immediately, after it receives the request. Then, it asynchronously inserts the posted data to database, and saves the data into redis server, and setups key expiration features.
+It returns to the client immediately, after it receives the request. Then, it asynchronously saves the posted data to database, and saves the data into redis server, and setups key expiration features.
 
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/insert/tb1' \
+    'http://localhost:8181/v1/save/tb1' \
     -d '[{"name":"new_name011","age":11}, {"name":"new_name012","age":12},{"name":"new_name013","age":13}]'
     {
       "timestamp" : 1518039226016,
