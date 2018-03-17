@@ -20,7 +20,7 @@ Example:
 
 It gets the data from table tb2 and set expiration of the hash key in redis to 10 seconds.
 
-    curl http://localhost:8181/v1/get/my-expiration-test-key/tb2/10?id=id21
+    curl http://localhost:8181/rdbcache/v1/get/my-expiration-test-key/tb2/10?id=id21
     {
       "timestamp" : 1518130073042,
       "duration" : "0.033897",
@@ -42,7 +42,7 @@ Example:
 
 It gets the data and forces to set the expiration to 30 seconds.
 
-    curl http://localhost:8181/v1/get/my-expiration-test-key/tb2/+30?id=id21
+    curl http://localhost:8181/rdbcache/v1/get/my-expiration-test-key/tb2/+30?id=id21
     {
       "timestamp" : 1518130362535,
       "duration" : "0.005958",
@@ -64,7 +64,7 @@ Example:
 
 It forcefully sets the expiration is 3 seconds and change the expiration behavior to refresh redis with data from database.
 
-    curl http://localhost:8181/v1/get/my-expiration-test-key/tb2/-3?id=id21
+    curl http://localhost:8181/rdbcache/v1/get/my-expiration-test-key/tb2/-3?id=id21
     {
       "timestamp" : 1518130552044,
       "duration" : "0.007691",
@@ -86,7 +86,7 @@ Example:
 
 It removes any expiration event with hash key my-expiration-test-key. 
 
-    curl http://localhost:8181/v1/get/my-expiration-test-key/0
+    curl http://localhost:8181/rdbcache/v1/get/my-expiration-test-key/0
     {
       "timestamp" : 1518130741906,
       "duration" : "0.000798",
@@ -128,18 +128,18 @@ Examples:
 
 ### 1) limit
 
-    curl http://localhost:8181/v1/select/tb1?limit=3
+    curl http://localhost:8181/rdbcache/v1/select/tb1?limit=3
     =>
     select * from tb1 limit 3
 
 ### 2) =
 
-    curl http://localhost:8181/v1/select/tb1?id=1&id=2&id=3
+    curl http://localhost:8181/rdbcache/v1/select/tb1?id=1&id=2&id=3
     =>
     select * from tb1 where (id = "1" OR id = "2" OR id = "3")
 
 ### 3) \_REGEXP\_
 
-    curl http://localhost:8181/v1/select/tb1?name_REGEXP_name1
+    curl http://localhost:8181/rdbcache/v1/select/tb1?name_REGEXP_name1
     =>
     select * from tb1 where (name REGEXP "name1")

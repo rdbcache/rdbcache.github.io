@@ -12,11 +12,11 @@ order: 1
 
 All API endpoints have the same simple pattern:
 
-    /version/api_name/hash_key[/value][/table_name][/expiration][?query_string]
+    /rdbcache/version/api_name/hash_key[/value][/table_name][/expiration][?query_string]
 
 For example:
 
-    curl http://rdbcache_server/v1/get/*/user_table?email=david@example.com
+    curl http://rdbcache_server/rdbcache/v1/get/*/user_table?email=david@example.com
     {
       "timestamp" : 1518120211706,
       "duration" : "0.022995",
@@ -41,53 +41,53 @@ For example:
 
 There are 11 API endpoints: get, set, getset, put, pull, push, select, save, delkey, delall and trace:
 
-#### [1. /v1/get/hash_key](#api-1) 
+#### [1. /rdbcache/v1/get/hash_key](#api-1) 
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get data from redis or from database.
 
-#### [2. /v1/set/hash_key](#api-2)
+#### [2. /rdbcache/v1/set/hash_key](#api-2)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Set value in redis and in database.
 
-#### [3. /v1/getset/hash_key](#api-3)
+#### [3. /rdbcache/v1/getset/hash_key](#api-3)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get current value and set new value in redis and/or in database.
 
-#### [4. /v1/put/hash_key](#api-4)
+#### [4. /rdbcache/v1/put/hash_key](#api-4)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Update redis and database with partial data.
 
-#### [5. /v1/pull](#api-5)
+#### [5. /rdbcache/v1/pull](#api-5)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Get multiple entries from redis or database.
 
-#### [6. /v1/push](#api-6)
+#### [6. /rdbcache/v1/push](#api-6)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Set multiple entries in redis and database.
 
-#### [7. /v1/select](#api-7)
+#### [7. /rdbcache/v1/select](#api-7)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Select multiple entries from database and populate the redis.
 
-#### [8. /v1/save](#api-8)
+#### [8. /rdbcache/v1/save](#api-8)
 
 &nbsp;&nbsp;&nbsp;&nbsp;Save multiple entries into database and populate the redis.
 
-#### [9. /v1/delkey](#api-9)
+#### [9. /rdbcache/v1/delkey](#api-9)
 
 &nbsp;&nbsp;&nbsp;&nbsp;delete hash key(s) from redis.
 
-#### [10. /v1/delall](#api-10)
+#### [10. /rdbcache/v1/delall](#api-10)
 
 &nbsp;&nbsp;&nbsp;&nbsp;delete hash key(s) and data from both redis and database.
 
-#### [11. /v1/trace](#api-11)
+#### [11. /rdbcache/v1/trace](#api-11)
 
 &nbsp;&nbsp;&nbsp;&nbsp;get error messages by trace id.
 
 ## API Services
 
-### 1. /v1/get/hash_key
+### 1. /rdbcache/v1/get/hash_key
 <a id="api-1"></a>
 * method: get
 * option1: table name
@@ -100,7 +100,7 @@ This action finds the data by the hash key from the redis server. If no data is 
 
 Example:
 
-    curl http://localhost:8181/v1/get/my-hash-key/tb1?id=1
+    curl http://localhost:8181/rdbcache/v1/get/my-hash-key/tb1?id=1
     {
       "timestamp" : 1518035863297,
       "duration" : "0.009557",
@@ -113,7 +113,7 @@ Example:
       "trace_id" : "96955ba6b7f34de680a1a9fa48b31c7e"
     }
 
-### 2. /v1/set/hash_key
+### 2. /rdbcache/v1/set/hash_key
 <a id="api-2"></a>
 * method: get, post
 * option1: value (required for get, invalid for post)
@@ -128,7 +128,7 @@ This action returns to the client immediately, after it receives the request. Th
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/set/set-test-key/tb1' \
+    'http://localhost:8181/rdbcache/v1/set/set-test-key/tb1' \
     -d '{"name":"mike","age":"20"}'
     {
       "timestamp" : 1518035902257,
@@ -137,7 +137,7 @@ Examples:
       "trace_id" : "b47293d08ea44f739d13fe6f7d7110b0"
     }
 
-    curl 'http://localhost:8181/v1/get/set-test-key'
+    curl 'http://localhost:8181/rdbcache/v1/get/set-test-key'
     {
       "timestamp" : 1518035935168,
       "duration" : "0.007012",
@@ -150,7 +150,7 @@ Examples:
       "trace_id" : "2b7f32ac3c1c4bbc85361b83da3991d9"
     }
 
-### 3. /v1/getset/hash_key
+### 3. /rdbcache/v1/getset/hash_key
 <a id="api-3"></a>
 * method: get, post
 * option1: value (required for get, invalid for post)
@@ -165,7 +165,7 @@ This action finds the data by the hash key from the redis server. If no data is 
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/getset/set-test-key' \
+    'http://localhost:8181/rdbcache/v1/getset/set-test-key' \
     -d '{"id":152,"name":"mike","age":"29"}'
     {
       "timestamp" : 1518036014387,
@@ -179,7 +179,7 @@ Examples:
       "trace_id" : "2720821d17d1400bb2289d12829a61fa"
     }
 
-    curl 'http://localhost:8181/v1/get/set-test-key'
+    curl 'http://localhost:8181/rdbcache/v1/get/set-test-key'
     {
       "timestamp" : 1518036166498,
       "duration" : "0.007404",
@@ -192,7 +192,7 @@ Examples:
       "trace_id" : "b747722de6a54899842b21777802cf34"
     }
 
-### 4. /v1/put/hash_key
+### 4. /rdbcache/v1/put/hash_key
 <a id="api-4"></a>
 * method: post
 * option1: table name
@@ -206,7 +206,7 @@ This action returns to the client immediately, after it receives the request. Th
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/put/set-test-key' \
+    'http://localhost:8181/rdbcache/v1/put/set-test-key' \
     -d '{"age":"30"}'
     {
       "timestamp" : 1518036233773,
@@ -215,7 +215,7 @@ Examples:
       "trace_id" : "025e44bbb6aa429cb5b897d4e155653f"
     }
 
-    curl 'http://localhost:8181/v1/get/set-test-key'
+    curl 'http://localhost:8181/rdbcache/v1/get/set-test-key'
     {
       "timestamp" : 1518036261586,
       "duration" : "0.007767",
@@ -228,7 +228,7 @@ Examples:
       "trace_id" : "8b1c26c84c6047feb7b4d68557a12ae7"
     }
 
-### 5. /v1/pull
+### 5. /rdbcache/v1/pull
 <a id="api-5"></a>
 * method: post
 * option1: table name
@@ -240,7 +240,7 @@ It checks the redis and the database.  Once result is concluded for every key, i
 
 Examples:
 
-    curl 'http://localhost:8181/v1/select/tb2?id=id22&id=id23'
+    curl 'http://localhost:8181/rdbcache/v1/select/tb2?id=id22&id=id23'
     {
       "timestamp" : 1518037011556,
       "duration" : "0.002116",
@@ -260,7 +260,7 @@ Examples:
     }
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/pull' \
+    'http://localhost:8181/rdbcache/v1/pull' \
     -d '["2c27a9441ad345f1911e97a9cc61aa02","caf8aa3e449b41198ab05f43efc8d030"]'
     {
       "timestamp" : 1518037298293,
@@ -280,7 +280,7 @@ Examples:
       "trace_id" : "f9d12826d6d74d309c9e929164b88bf8"
     }
 
-### 6. /v1/push
+### 6. /rdbcache/v1/push
 <a id="api-6"></a>
 * method: post
 * option1: table name
@@ -293,7 +293,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/save/tb1' \
+    'http://localhost:8181/rdbcache/v1/save/tb1' \
     -d '[{"name":"new_name001","age":11}, {"name":"new_name002","age":12},{"name":"new_name003","age":13}]'
     {
       "timestamp" : 1518038120506,
@@ -303,7 +303,7 @@ Examples:
     }
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/pull' \
+    'http://localhost:8181/rdbcache/v1/pull' \
     -d '[ "145e31830c3c4c9f876c8293a1d526d2", "d129d4b9e1a549bd832f9c454b118388", "ad09ca20fa2d453faf4bbe3a6beda2e3" ]'
     {
       "timestamp" : 1518038361008,
@@ -328,7 +328,7 @@ Examples:
       "trace_id" : "e3068c903458432a9b1f1a0dfead95c2"
     }
 
-### 7. /v1/select
+### 7. /rdbcache/v1/select
 <a id="api-7"></a>
 * method: get
 * option1: table name
@@ -341,7 +341,7 @@ It selects data from the database by condition defined by the query string. Once
 
 Examples:
 
-    curl 'http://localhost:8181/v1/select/tb2?id=id21&id=id22&id=id23'
+    curl 'http://localhost:8181/rdbcache/v1/select/tb2?id=id21&id=id22&id=id23'
     {
       "timestamp" : 1518039068206,
       "duration" : "0.003632",
@@ -365,7 +365,7 @@ Examples:
       "trace_id" : "a16838c58a9149c0b41468dff9dc26ff"
     }
 
-### 8. /v1/save
+### 8. /rdbcache/v1/save
 <a id="api-8"></a>
 * method: post
 * option1: table name
@@ -378,7 +378,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/save/tb1' \
+    'http://localhost:8181/rdbcache/v1/save/tb1' \
     -d '[{"name":"new_name011","age":11}, {"name":"new_name012","age":12},{"name":"new_name013","age":13}]'
     {
       "timestamp" : 1518039226016,
@@ -388,7 +388,7 @@ Examples:
     }
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/pull' \
+    'http://localhost:8181/rdbcache/v1/pull' \
     -d '[ "d1ad378409d54f0db8a31beaeca9e005", "38a6d4f5cb3c43f8bf6bbbf9972957b1", "4378ec1afcb044918efb25c64599c825" ]'
     {
       "timestamp" : 1518039407381,
@@ -413,7 +413,7 @@ Examples:
       "trace_id" : "3e70f6684745489f9cd3ffdb2d39917c"
     }
 
-### 9. /v1/delkey
+### 9. /rdbcache/v1/delkey
 <a id="api-9"></a>
 * method: get, post
 * option1: hash_key (required for get, invalid for post)
@@ -425,7 +425,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/v1/delkey' \
+    'http://localhost:8181/rdbcache/v1/delkey' \
     -d '[ "d1ad378409d54f0db8a31beaeca9e005", "38a6d4f5cb3c43f8bf6bbbf9972957b1", "4378ec1afcb044918efb25c64599c825" ]'
     {
       "timestamp" : 1518039518088,
@@ -434,17 +434,17 @@ Examples:
       "trace_id" : "eaaf1b30e9ca40b992780bf053464ded"
     }
 
-    curl 'http://localhost:8181/v1/get/d1ad378409d54f0db8a31beaeca9e005'
+    curl 'http://localhost:8181/rdbcache/v1/get/d1ad378409d54f0db8a31beaeca9e005'
     {
       "timestamp" : 1518039631228,
       "status" : 404,
       "error" : "Not Found",
       "exception" : "com.doitincloud.rdbcache.exceptions.NotFoundException",
       "message" : "data not found",
-      "path" : "/v1/get/d1ad378409d54f0db8a31beaeca9e005"
+      "path" : "/rdbcache/v1/get/d1ad378409d54f0db8a31beaeca9e005"
     }
 
-    curl 'http://localhost:8181/v1/get/*/tb1?id=169'
+    curl 'http://localhost:8181/rdbcache/v1/get/*/tb1?id=169'
     {
       "timestamp" : 1518040004299,
       "duration" : "0.005519",
@@ -457,7 +457,7 @@ Examples:
       "trace_id" : "7628cede4a14482db2f5e729ff7f40b7"
     }
 
-### 10. /v1/delall
+### 10. /rdbcache/v1/delall
 <a id="api-10"></a>
 * method: get, post
 * option1: hash_key (required for get, invalid for post)
@@ -468,7 +468,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 
 Examples:
 
-    curl 'http://localhost:8181/v1/delall/e245408bd7ae439a81fe4b79394dfdac'
+    curl 'http://localhost:8181/rdbcache/v1/delall/e245408bd7ae439a81fe4b79394dfdac'
     {
       "timestamp" : 1518040295477,
       "duration" : "0.000707",
@@ -476,27 +476,27 @@ Examples:
       "trace_id" : "cee544086b724b0e84863fc028fe64d0"
     }
 
-    curl 'http://localhost:8181/v1/get/e245408bd7ae439a81fe4b79394dfdac'
+    curl 'http://localhost:8181/rdbcache/v1/get/e245408bd7ae439a81fe4b79394dfdac'
     {
       "timestamp" : 1518040397510,
       "status" : 404,
       "error" : "Not Found",
       "exception" : "com.doitincloud.rdbcache.exceptions.NotFoundException",
       "message" : "data not found",
-      "path" : "/v1/get/e245408bd7ae439a81fe4b79394dfdac"
+      "path" : "/rdbcache/v1/get/e245408bd7ae439a81fe4b79394dfdac"
     }
 
-    curl 'http://localhost:8181/v1/get/*/tb1?id=168'
+    curl 'http://localhost:8181/rdbcache/v1/get/*/tb1?id=168'
     {
       "timestamp" : 1518040476732,
       "status" : 404,
       "error" : "Not Found",
       "exception" : "com.doitincloud.rdbcache.exceptions.NotFoundException",
       "message" : "data not found",
-      "path" : "/v1/get/*/tb1"
+      "path" : "/rdbcache/v1/get/*/tb1"
     }
 
-### 11. /v1/trace
+### 11. /rdbcache/v1/trace
 <a id="api-11"></a>
 * method: get, post
 * option1: trace_id (required for get, invalid for post)
@@ -507,7 +507,7 @@ A trace id is sent back in responses for all API calls. This trace id allows use
 
 Example:
 
-    curl 'http://localhost:8181/v1/trace/cee544086b724b0e84863fc028fe64d0'
+    curl 'http://localhost:8181/rdbcache/v1/trace/cee544086b724b0e84863fc028fe64d0'
     {
       "timestamp" : 1518040688356,
       "duration" : "0.00357",

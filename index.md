@@ -68,7 +68,7 @@ Let’s demonstrate how to use rdbcache with some examples.
 A simple API request can query and get data from the database.
 The duration is the time it takes for the server to perform the request (measured in seconds).
 
-    curl http://rdbcache_server/v1/get/*/user_table?email=david@example.com
+    curl http://rdbcache_server/rdbcache/v1/get/*/user_table?email=david@example.com
     {
       "timestamp" : 1518120211706,
       "duration" : "0.022995",
@@ -84,7 +84,7 @@ The duration is the time it takes for the server to perform the request (measure
 
 Here we request the same data as in the previous example. The duration is reduced to around 10% of the first request because the data is now in redis. Once created, the hash key will always available until it is deleted by calling delkey or delall API.
 
-    curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
+    curl http://rdbcache_server/rdbcache/v1/get/69766f6c4556450c85bfda45c4bbab0b
     {
       "timestamp" : 1518120320262,
       "duration" : "0.00197",
@@ -106,7 +106,7 @@ The put API allows to use partial data to update both redis and database.
 Since the put API doesn’t have to send back any data, it returns immediately after server receives the request. The duration is reduced to less than a millisecond.
 
     curl -X POST -H "Content-Type: application/json" \
-    http://rdbcache_server/v1/put/69766f6c4556450c85bfda45c4bbab0b \
+    http://rdbcache_server/rdbcache/v1/put/69766f6c4556450c85bfda45c4bbab0b \
     -d '{"name" : "David Copper"}'
     {
       "timestamp" : 1518120953655,
@@ -117,7 +117,7 @@ Since the put API doesn’t have to send back any data, it returns immediately a
 
 Let's verify that everything worked.
 
-    curl http://rdbcache_server/v1/get/69766f6c4556450c85bfda45c4bbab0b
+    curl http://rdbcache_server/rdbcache/v1/get/69766f6c4556450c85bfda45c4bbab0b
     {
       "timestamp" : 1518121599199,
       "duration" : "0.001314",
@@ -142,7 +142,7 @@ Now we also check the database to verify the change:
 
 ### 3) Select 3 rows from a table
 
-    curl http://rdbcache_server/v1/select/tb1?limit=3
+    curl http://rdbcache_server/rdbcache/v1/select/tb1?limit=3
     {
       "timestamp" : 1518122143868,
       "duration" : "0.00574",
@@ -173,13 +173,13 @@ More examples are available at [API List](/api-list) and [Features](/features).
 
 ## Tests
 
-Version 1.0 beta has passed the integration tests, please see [the test result](https://github.com/rdbcache/rdbcache-test/blob/master/rdbcache-test-result.txt). rdbcache test suite is open source and available at [github](https://github.com/rdbcache/rdbcache-test).
+Version 1.0.0 has passed the integration tests, please see [the test result](https://github.com/rdbcache/rdbcache-test/blob/master/rdbcache-test-result.txt). rdbcache test suite is open source and available at [github](https://github.com/rdbcache/rdbcache-test).
 
     tail -f rdbcache-test-result.txt 
     ......
     =============== OVERALL ===============
 
-    Total: 409
+    Total: 475
     All passed!
     All verify passed!
 
