@@ -12,7 +12,7 @@ order: 1
 
 All API endpoints have the same simple pattern:
 
-    /rdbcache/version/api_name/hash_key[/value][/table_name][/expiration][?query_string]
+    /rdbcache/version/api_name/hash_key[/value][/table_name][/expiration][/sync][?query_string]
 
 For example:
 
@@ -36,6 +36,18 @@ For example:
 - duration is in seconds. It is the time that server used to accomplish the request.
 - key is the hash key. It also maps to the data record through primary (or unique) key.
 - trace_id is an id for late retrieving error(s) associated with this request.
+
+By default, in order to response fast, rdbcache provides asynchronous API services as much as possible. It is also provide option (sync) to force an API call response synchronously. It means that the API call returns after database and redis updated.  This feature is useful when caller of the API wants to make sure the operation is completed before doing anything else. 
+
+For example:
+
+    curl http://rdbcache_server/rdbcache/v1/get/*/user_table/sync?email=david@example.com
+
+    curl http://rdbcache_server/rdbcache/v1/get/*/user_table/300-sync?email=david@example.com
+
+    curl http://rdbcache_server/rdbcache/v1/get/*/user_table-sync?email=david@example.com
+
+When both table and expire options are used, sync key word can append to either one as xxxx-sync.
 
 ## Summary
 

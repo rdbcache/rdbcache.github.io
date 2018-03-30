@@ -8,7 +8,7 @@ comments: true
 
 ## What is rdbcache?
 
-rdbcache (redis database cache) is an open source database cache server. rdbcache uses redis as a cache to offer an asynchronous database cache api service. It provides [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency) between redis and the database.
+rdbcache (redis database cache) is an open source database cache server. rdbcache uses redis as a cache to offer both asynchronous and synchronous database cache api services. It provides [eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency) between redis and the database for asynchronous operations.
 
 The asynchronous nature makes rdbcache very fast and useful in many scenarios. Through a few simple restful API endpoints, rdbcache offers a convenient way for developers to leverage the power of both redis and the database.
 
