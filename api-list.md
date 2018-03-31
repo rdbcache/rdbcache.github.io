@@ -43,12 +43,6 @@ For example:
 
     curl http://rdbcache_server/rdbcache/v1/get/*/user_table/sync?email=david@example.com
 
-    curl http://rdbcache_server/rdbcache/v1/get/*/user_table/300-sync?email=david@example.com
-
-    curl http://rdbcache_server/rdbcache/v1/get/*/user_table-sync?email=david@example.com
-
-When both table and expire options are used, sync key word can append to either one as xxxx-sync.
-
 ## Summary
 
 There are 11 API endpoints: get, set, getset, put, pull, push, select, save, delkey, delall and trace:
