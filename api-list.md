@@ -98,7 +98,8 @@ There are 11 API endpoints: get, set, getset, put, pull, push, select, save, del
 * method: get
 * option1: table name
 * option2: expiration
-* option3: query_string
+* option3: sync
+* option4: query_string
 
 Get data from redis or from database.
 
@@ -125,7 +126,8 @@ Example:
 * option1: value (required for get, invalid for post)
 * option2: table name
 * option3: expiration
-* option4: query_string
+* option4: sync
+* option5: query_string
 
 Set value in redis and in database.
 
@@ -143,7 +145,7 @@ Examples:
       "trace_id" : "b47293d08ea44f739d13fe6f7d7110b0"
     }
 
-    curl 'http://localhost:8181/rdbcache/v1/get/set-test-key'
+    curl 'http://localhost:8181/rdbcache/v1/get/set-test-key/tb1'
     {
       "timestamp" : 1518035935168,
       "duration" : "0.007012",
@@ -162,7 +164,8 @@ Examples:
 * option1: value (required for get, invalid for post)
 * option2: table name
 * option3: expiration
-* option4: query_string
+* option4: sync
+* option5: query_string
 
 Get current value and set new value in redis and/or in database.
 
@@ -203,7 +206,8 @@ Examples:
 * method: post
 * option1: table name
 * option2: expiration
-* option3: query_string
+* option3: sync
+* option4: query_string
 
 Update redis and database with partial data.
 
@@ -239,6 +243,7 @@ Examples:
 * method: post
 * option1: table name
 * option2: expiration
+* option3: sync
 
 Get multiple entries from redis or database.
 
@@ -266,7 +271,7 @@ Examples:
     }
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/rdbcache/v1/pull' \
+    'http://localhost:8181/rdbcache/v1/pull/tb2' \
     -d '["2c27a9441ad345f1911e97a9cc61aa02","caf8aa3e449b41198ab05f43efc8d030"]'
     {
       "timestamp" : 1518037298293,
@@ -291,6 +296,7 @@ Examples:
 * method: post
 * option1: table name
 * option2: expiration
+* option3: sync
 
 Set multiple entries in redis and database.
 
@@ -309,7 +315,7 @@ Examples:
     }
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/rdbcache/v1/pull' \
+    'http://localhost:8181/rdbcache/v1/pull/tb1' \
     -d '[ "145e31830c3c4c9f876c8293a1d526d2", "d129d4b9e1a549bd832f9c454b118388", "ad09ca20fa2d453faf4bbe3a6beda2e3" ]'
     {
       "timestamp" : 1518038361008,
@@ -339,7 +345,8 @@ Examples:
 * method: get
 * option1: table name
 * option2: expiration
-* option3: query_string
+* option3: sync
+* option4: query_string
 
 Select multiple entries from database and populate the redis.
 
@@ -376,6 +383,7 @@ Examples:
 * method: post
 * option1: table name
 * option2: expiration
+* option3: sync
 
 Save multiple entries into database and populate the redis.
 
@@ -394,7 +402,7 @@ Examples:
     }
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/rdbcache/v1/pull' \
+    'http://localhost:8181/rdbcache/v1/pull/tb1' \
     -d '[ "d1ad378409d54f0db8a31beaeca9e005", "38a6d4f5cb3c43f8bf6bbbf9972957b1", "4378ec1afcb044918efb25c64599c825" ]'
     {
       "timestamp" : 1518039407381,
@@ -423,6 +431,8 @@ Examples:
 <a id="api-9"></a>
 * method: get, post
 * option1: hash_key (required for get, invalid for post)
+* option2: table
+* option3: sync
 
 delete hash key(s) from redis.
 
@@ -431,7 +441,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 Examples:
 
     curl -X POST -H "Content-Type: application/json" \
-    'http://localhost:8181/rdbcache/v1/delkey' \
+    'http://localhost:8181/rdbcache/v1/delkey/tb1' \
     -d '[ "d1ad378409d54f0db8a31beaeca9e005", "38a6d4f5cb3c43f8bf6bbbf9972957b1", "4378ec1afcb044918efb25c64599c825" ]'
     {
       "timestamp" : 1518039518088,
@@ -440,7 +450,7 @@ Examples:
       "trace_id" : "eaaf1b30e9ca40b992780bf053464ded"
     }
 
-    curl 'http://localhost:8181/rdbcache/v1/get/d1ad378409d54f0db8a31beaeca9e005'
+    curl 'http://localhost:8181/rdbcache/v1/get/d1ad378409d54f0db8a31beaeca9e005/tb1'
     {
       "timestamp" : 1518039631228,
       "status" : 404,
@@ -467,6 +477,8 @@ Examples:
 <a id="api-10"></a>
 * method: get, post
 * option1: hash_key (required for get, invalid for post)
+* option2: table
+* option3: sync
 
 delete hash key(s) and data from both redis and database.
 
@@ -474,7 +486,7 @@ It returns to the client immediately, after it receives the request. Then, it as
 
 Examples:
 
-    curl 'http://localhost:8181/rdbcache/v1/delall/e245408bd7ae439a81fe4b79394dfdac'
+    curl 'http://localhost:8181/rdbcache/v1/delall/e245408bd7ae439a81fe4b79394dfdac/tb1'
     {
       "timestamp" : 1518040295477,
       "duration" : "0.000707",
@@ -482,7 +494,7 @@ Examples:
       "trace_id" : "cee544086b724b0e84863fc028fe64d0"
     }
 
-    curl 'http://localhost:8181/rdbcache/v1/get/e245408bd7ae439a81fe4b79394dfdac'
+    curl 'http://localhost:8181/rdbcache/v1/get/e245408bd7ae439a81fe4b79394dfdac/tb1'
     {
       "timestamp" : 1518040397510,
       "status" : 404,

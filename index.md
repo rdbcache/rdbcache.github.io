@@ -84,7 +84,7 @@ The duration is the time it takes for the server to perform the request (measure
 
 Here we request the same data as in the previous example. The duration is reduced to around 10% of the first request because the data is now in redis. Once created, the hash key will always available until it is deleted by calling delkey or delall API.
 
-    curl http://rdbcache_server/rdbcache/v1/get/69766f6c4556450c85bfda45c4bbab0b
+    curl http://rdbcache_server/rdbcache/v1/get/69766f6c4556450c85bfda45c4bbab0b/user_table
     {
       "timestamp" : 1518120320262,
       "duration" : "0.00197",
@@ -106,7 +106,7 @@ The put API allows to use partial data to update both redis and database.
 Since the put API doesn’t have to send back any data, it returns immediately after server receives the request. The duration is reduced to less than a millisecond.
 
     curl -X POST -H "Content-Type: application/json" \
-    http://rdbcache_server/rdbcache/v1/put/69766f6c4556450c85bfda45c4bbab0b \
+    http://rdbcache_server/rdbcache/v1/put/69766f6c4556450c85bfda45c4bbab0b/user_table \
     -d '{"name" : "David Copper"}'
     {
       "timestamp" : 1518120953655,
@@ -117,7 +117,7 @@ Since the put API doesn’t have to send back any data, it returns immediately a
 
 Let's verify that everything worked.
 
-    curl http://rdbcache_server/rdbcache/v1/get/69766f6c4556450c85bfda45c4bbab0b
+    curl http://rdbcache_server/rdbcache/v1/get/69766f6c4556450c85bfda45c4bbab0b/user_table
     {
       "timestamp" : 1518121599199,
       "duration" : "0.001314",
